@@ -1,4 +1,4 @@
-# Scottish Outbound Trade Dashboard (2008–2023)
+# Export Statistics Scotland (ESS) Dashboard 2023
 
 An interactive dashboard built with **Shiny for Python** and deployed via **Shinylive** (WebAssembly). This tool visualizes Scottish export trends ("exports" as defined by the publishers) to the EU and Non-EU International markets and the Rest of the UK.
 
