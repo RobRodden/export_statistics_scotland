@@ -22,3 +22,5 @@ To run this project locally:
 2. Install dependencies: `see requirements.txt`
 3. Export the app: `shinylive export . docs`
 4. Serve locally: `python3 -m http.server --directory docs --bind localhost 8008`
+
+## REMEMBER TO ADD DEVELOPMENT LOG
