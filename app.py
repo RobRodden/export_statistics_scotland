@@ -73,6 +73,12 @@ df_plot["Year"] = df_plot["Year"].astype(int)
 # 4.1 UI Container
 app_ui = ui.page_fluid(
     ui.div(
+        # 4.1.1 Title & Description
+        ui.div(
+            ui.h2("Export Statistics Scotland (ESS) 2023 Data"),
+            style="text-align: center; margin-top: 30px; margin-bottom: 10px; color: #333333;"
+        ),
+
         # 4.2 Main Plot Output
         ui.output_plot("trade_plot", height="750px"),
         
@@ -158,7 +164,7 @@ def server(input, output, session):
         ax.set_xticks(x)
         ax.set_xticklabels(years_x)
         ax.set_ylabel("Value (£ Billions)", fontsize=11, color='#777777')
-        ax.set_title("Scottish Exports by Destination (2008–2023)", fontsize=18, fontweight="bold", pad=25)
+        ax.set_title("Destination block: 2008 – 2023", fontsize=18, fontweight="bold", pad=25)
         ax.yaxis.grid(True, linestyle="--", linewidth=0.7, alpha=0.25)
         sns.despine(ax=ax, left=True, bottom=True)
         plt.subplots_adjust(bottom=0.25, top=0.88, left=0.12, right=0.88)

@@ -3,7 +3,7 @@
 An interactive dashboard built with **Shiny for Python** and deployed via **Shinylive** (WebAssembly). This tool visualizes Scottish export trends ("exports" as defined by the publishers) to the EU and Non-EU International markets and the Rest of the UK.
 
 ## Live Demo
-robrodden.github.io/export_statistics_scotland/
+https://robrodden.github.io/export_statistics_scotland/
 
 ## Key Features
 * **Interactive Visualization:** Tracks trade value in £ Billions across three main destination blocks.
