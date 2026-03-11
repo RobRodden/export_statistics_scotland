@@ -1,0 +1,16 @@
+# Python environment
+__pycache__/
+
+# Virtual environment
+.venv/
+env/
+venv
+
+# Editor-specific settings
+.vscode/
+
+# Mac system
+.DS_Store
+
+# Files to be deleted (once no longer needed)
+"Project Case Study - Scottish Outbound Trade - 2008 to 2023.pages"
