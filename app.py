@@ -76,6 +76,8 @@ app_ui = ui.page_fluid(
         # 4.1.1 Title & Description
         ui.div(
             ui.h2("Export Statistics Scotland (ESS) 2023 Data"),
+            ui.p("An visualisation of Scottish exports\n",
+                 ui.a("View my full portfolio here.", href="https://https://www.datascienceportfol.io/robroddendata", target="_blank")),
             style="text-align: center; margin-top: 30px; margin-bottom: 10px; color: #333333;"
         ),
 
