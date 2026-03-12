@@ -1,6 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-import seaborn as sns
+#import seaborn as sns
 import numpy as np
 import io
 from shiny import App, render, ui
@@ -105,7 +105,8 @@ def server(input, output, session):
         ruk_color, eu_color, non_eu_color = "#4C5B7A", "#2A9D8F", "#8ABF88"
         total_line_color = "#222222"
 
-        sns.set_theme(style="white")
+#        sns.set_theme(style="white")
+        plt.style.use("default")  # Use a seaborn style for better aesthetics without importing the full library
         fig = plt.figure(figsize=(12, 10))
         gs = fig.add_gridspec(2, 1, height_ratios=[7.5, 2.5])
         ax, ax_note = fig.add_subplot(gs[0]), fig.add_subplot(gs[1])
@@ -168,7 +169,11 @@ def server(input, output, session):
         ax.set_ylabel("Value (£ Billions)", fontsize=11, color='#777777')
         ax.set_title("Destination block: 2008 – 2023", fontsize=18, fontweight="bold", pad=25)
         ax.yaxis.grid(True, linestyle="--", linewidth=0.7, alpha=0.25)
-        sns.despine(ax=ax, left=True, bottom=True)
+#        sns.despine(ax=ax, left=True, bottom=True)
+        ax.spines['top'].set_visible(False)
+        ax.spines['right'].set_visible(False)
+        ax.spines['left'].set_visible(False)
+        ax.spines['bottom'].set_visible(False)
         plt.subplots_adjust(bottom=0.25, top=0.88, left=0.12, right=0.88)
 
         # 5.6 Legend & Metadata Processing
