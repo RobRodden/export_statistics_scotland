@@ -29,7 +29,7 @@ df_plot = df_all[df_all["Destination"].isin(bar_categories)].copy()
 total_row = df_all[df_all["Destination"] == "Total RUK + International Exports"]
 total_values = total_row["Export_Value"].to_numpy().flatten()
 
-# Saftey check for missing data
+# 1.x Safety check for missing data
 if len(total_values) == 0:
     total_values = np.array([0])
 
