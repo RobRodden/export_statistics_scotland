@@ -188,14 +188,6 @@ def server(input, output, session):
         current_date = datetime.now().strftime("%d %B %Y")
         data_url = "https://www.gov.scot/publications/exports-statistics-scotland-2023/"
         
-        # # 5.7 Metadata Cleaning Loop
-        # excel_notes = excel_notes_imported
-        # exclude_list = ["Table 1: ", "This worksheet contains one table."]
-        # for word in exclude_list:
-        #     excel_notes = excel_notes.replace(word, "")
-
-        # excel_notes = "\n".join([line.strip() for line in excel_notes.splitlines() if line.strip()])
-
         note = (
             f"Source of data used: Export Statistics Scotland (ESS) 2023 ({data_url})\n\n"
             f"ESS Notes: {excel_notes}\n\n"
