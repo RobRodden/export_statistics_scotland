@@ -7,6 +7,12 @@ from pathlib import Path
 from datetime import datetime
 
 # ---------------------------------------------------------
+# 0. APP CONFIGURATION
+# ---------------------------------------------------------
+APP_VERSION = "1.0.4"  # Increment this to force a browser refresh
+LAST_UPDATED = "13 March 2026"
+
+# ---------------------------------------------------------
 # 1. PATH & DATA INGESTION
 # ---------------------------------------------------------
 # 1.1 Relative Pathing (Necessary for Shinylive/Web)
@@ -14,7 +20,21 @@ this_dir = Path(__file__).parent
 processed_dir = this_dir / "data" / "processed"
 
 # 1.x Main Data Ingestion (Desingated Area with Header Alignment)
-df_all = pd.read_csv(processed_dir / "clean_ESS_data.csv")
+# 1.2 Data Ingestion with Cache-Busting
+# 1. Define the base path
+csv_base_path = str(processed_dir / "clean_ESS_data.csv")
+
+# 2. Add the cache-buster ONLY if it looks like a web URL 
+# (Shinylive/GitHub Pages will use 'https' or 'http')
+if csv_base_path.startswith(("http", "https")):
+    csv_path = f"{csv_base_path}?v={APP_VERSION}"
+else:
+    # We are on your Mac/Local Network, so we use the clean path
+    csv_path = csv_base_path
+
+df_all = pd.read_csv(csv_path)
+
+# df_all = pd.read_csv(processed_dir / "clean_ESS_data.csv")
 
 # 1.2 Report Metadata Extraction (Dynamic)
 with open(processed_dir / "metadata_notes.txt", "r") as f:
@@ -50,7 +70,7 @@ app_ui = ui.page_fluid(
     ui.div(
         # 4.1.1 Title & Description
         ui.div(
-            ui.h2("Export Statistics Scotland (ESS) 2023 - Visualisation",
+            ui.h2("Export Statistics Scotland (ESS) 2023 - Visualised",
                   style="font-weight: 900; color: #000000; margin-bottom: 5px;"
             ),
             ui.p(
