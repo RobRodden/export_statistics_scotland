@@ -9,6 +9,13 @@ from pathlib import Path
 from datetime import datetime
 
 # ---------------------------------------------------------
+# 0. DEBUG
+# ---------------------------------------------------------
+# Options: None, "mobile", "tablet", "desktop"
+
+# DEBUG_SCREEN = None
+
+# ---------------------------------------------------------
 # 0. CONFIG & DATA INGESTION
 # ---------------------------------------------------------
 version_id = int(time.time())
@@ -70,6 +77,23 @@ def server(input, output, session):
         ruk_color, eu_color, non_eu_color = "#4C5B7A", "#2A9D8F", "#8ABF88"
         
         plt.style.use("default")
+
+        # --------------------------------
+        # Debug screen size simulation
+        # --------------------------------
+
+        # if DEBUG_SCREEN == "mobile":
+        #     fig = plt.figure(figsize=(5, 8), layout="tight")
+
+        # elif DEBUG_SCREEN == "tablet":
+        #     fig = plt.figure(figsize=(8, 9), layout="tight")
+
+        # elif DEBUG_SCREEN == "desktop":
+        #     fig = plt.figure(figsize=(12, 10), layout="tight")
+
+        # else:
+        #     fig = plt.figure(figsize=(12, 10), layout="tight")
+        
         fig = plt.figure(figsize=(12, 10), layout="tight")
         gs = fig.add_gridspec(2, 1, height_ratios=[7.5, 2.5])
         ax, ax_note = fig.add_subplot(gs[0]), fig.add_subplot(gs[1])
