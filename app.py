@@ -15,8 +15,6 @@ LAST_UPDATED = "13 March 2026"
 
 # This creates a unique ID based on the current second
 version_id = int(time.time()) 
-# df_all = pd.read_csv(f"{processed_dir}/clean_ESS_data.csv?v={version_id}")
-
 
 # ---------------------------------------------------------
 # 1. PATH & DATA INGESTION
