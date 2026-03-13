@@ -50,9 +50,11 @@ app_ui = ui.page_fluid(
     ui.div(
         # 4.1.1 Title & Description
         ui.div(
-            ui.h2("Export Statistics Scotland (ESS) 2023 Data"),
-            ui.p("An visualisation of Scottish exports\n",
-                ui.a("return to project repository on github", href="https://github.com/RobRodden/export_statistics_scotland", target="_blank")),
+            ui.h2("Export Statistics Scotland (ESS) 2023 - Visualisation",
+                  style="font-weight: 900; color: #000000; margin-bottom: 5px;"
+            ),
+            ui.p(
+                ui.a("Return to project repository on github.", href="https://github.com/RobRodden/export_statistics_scotland", target="_blank")),
             style="text-align: center; margin-top: 30px; margin-bottom: 10px; color: #333333;"
         ),
 
@@ -142,7 +144,7 @@ def server(input, output, session):
         ax.set_xticks(x)
         ax.set_xticklabels(years_x)
         ax.set_ylabel("Value (£ Billions)", fontsize=11, color='#777777')
-        ax.set_title("Destination block: 2008 – 2023", fontsize=18, fontweight="bold", pad=25)
+        ax.set_title("By Destination Block: 2008 – 2023", fontsize=18, pad=25)
         ax.yaxis.grid(True, linestyle="--", linewidth=0.7, alpha=0.25)
 #        sns.despine(ax=ax, left=True, bottom=True)
         ax.spines['top'].set_visible(False)
@@ -168,7 +170,7 @@ def server(input, output, session):
         # excel_notes = "\n".join([line.strip() for line in excel_notes.splitlines() if line.strip()])
 
         note = (
-            f"Source of values: Export Statistics Scotland (ESS) 2023 ({data_url})\n\n"
+            f"Source of data used: Export Statistics Scotland (ESS) 2023 ({data_url})\n\n"
             f"ESS Notes: {excel_notes}\n\n"
             f"Author Note: In line with ESS terminology, 'exports' denotes all outbound trade from Scotland.\n"
             f"'Non-EU' Exports are derived from Total International Exports (not shown) minus Total EU Exports.\n"
