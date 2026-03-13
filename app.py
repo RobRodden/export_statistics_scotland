@@ -2,6 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 import io
+import time
 from shiny import App, render, ui
 from pathlib import Path
 from datetime import datetime
@@ -11,6 +12,11 @@ from datetime import datetime
 # ---------------------------------------------------------
 APP_VERSION = "1.0.4"  # Increment this to force a browser refresh
 LAST_UPDATED = "13 March 2026"
+
+# This creates a unique ID based on the current second
+version_id = int(time.time()) 
+# df_all = pd.read_csv(f"{processed_dir}/clean_ESS_data.csv?v={version_id}")
+
 
 # ---------------------------------------------------------
 # 1. PATH & DATA INGESTION
@@ -27,7 +33,7 @@ csv_base_path = str(processed_dir / "clean_ESS_data.csv")
 # 2. Add the cache-buster ONLY if it looks like a web URL 
 # (Shinylive/GitHub Pages will use 'https' or 'http')
 if csv_base_path.startswith(("http", "https")):
-    csv_path = f"{csv_base_path}?v={APP_VERSION}"
+    csv_path = f"{csv_base_path}?v={version_id}"
 else:
     # We are on your Mac/Local Network, so we use the clean path
     csv_path = csv_base_path
@@ -70,7 +76,7 @@ app_ui = ui.page_fluid(
     ui.div(
         # 4.1.1 Title & Description
         ui.div(
-            ui.h2("Export Statistics Scotland (ESS) 2023 - Visualised",
+            ui.h2("Export Statistics Scotland (ESS) 2023",
                   style="font-weight: 900; color: #000000; margin-bottom: 5px;"
             ),
             ui.p(
@@ -164,7 +170,7 @@ def server(input, output, session):
         ax.set_xticks(x)
         ax.set_xticklabels(years_x)
         ax.set_ylabel("Value (£ Billions)", fontsize=11, color='#777777')
-        ax.set_title("By Destination Block: 2008 – 2023", fontsize=18, pad=25)
+        ax.set_title("Destination by trading block visualised: 2008 – 2023", fontsize=18, pad=25)
         ax.yaxis.grid(True, linestyle="--", linewidth=0.7, alpha=0.25)
 #        sns.despine(ax=ax, left=True, bottom=True)
         ax.spines['top'].set_visible(False)
@@ -192,7 +198,7 @@ def server(input, output, session):
         note = (
             f"Source of data used: Export Statistics Scotland (ESS) 2023 ({data_url})\n\n"
             f"ESS Notes: {excel_notes}\n\n"
-            f"Author Note: In line with ESS terminology, 'exports' denotes all outbound trade from Scotland.\n"
+            f"Chart Author Note: In line with ESS terminology, 'exports' denotes all outbound trade from Scotland.\n"
             f"'Non-EU' Exports are derived from Total International Exports (not shown) minus Total EU Exports.\n"
             f"Values are estimates; minor variances may occur due to source rounding (nearest 5) and regional grossing.\n\n"
             f"Last updated: {current_date}."
