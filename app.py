@@ -73,6 +73,7 @@ EVENTS = {
 # ---------------------------------------------------------
 # 4.1 UI Container
 app_ui = ui.page_fluid(
+    
     ui.div(
         # 4.1.1 Title & Description
         ui.div(
@@ -85,7 +86,7 @@ app_ui = ui.page_fluid(
         ),
 
         # 4.2 Main Plot Output
-        ui.output_plot("trade_plot", height="750px"),
+        ui.output_plot("trade_plot", height="80vh"),
         
         # 4.3 Export Utility & Layout Optimization
         ui.div(
