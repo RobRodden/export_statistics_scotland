@@ -5,8 +5,8 @@ from datetime import datetime
 
 # 1. Setup Paths
 root_dir = Path(__file__).parent.parent
-raw_data_path = root_dir / "data" / "raw" / "ESS+2023+-+Published+Tables.xlsx"
-processed_dir = root_dir / "data" / "processed"
+raw_data_path = root_dir / "data_raw" / "ESS+2023+-+Published+Tables.xlsx"
+processed_dir = root_dir / "app" / "data_processed"
 output_path = processed_dir / "clean_ESS_data.json"
 
 processed_dir.mkdir(parents=True, exist_ok=True)

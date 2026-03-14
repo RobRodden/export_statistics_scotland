@@ -1,4 +1,4 @@
-![Export chart](outputs/export_destinations_chart.png)
+![Export chart](assets/how_have_scotlands_exports_changed_between_2008_2023.png)
 # Export Statistics Scotland (ESS) Dashboard 2023
 
 An interactive dashboard built with **Shiny for Python** and deployed via **Shinylive** (WebAssembly). This tool visualizes Scottish export trends ("exports" as defined by the publishers) to the EU and Non-EU International markets and the Rest of the UK.
@@ -25,3 +25,37 @@ To run this project locally:
 4. Serve locally: `python3 -m http.server --directory docs --bind localhost 8008`
 
 ## REMEMBER TO ADD DEVELOPMENT LOG
+
+
+
+
+
+
+# Scottish Export Destinations Tracker (2008–2023)
+
+### [📊 View Live Interactive App](https://yourusername.github.io/your-repo-name/)
+
+## 🎯 The Research Question
+**"How have Scottish export destinations changed between 2008–2023?"**
+
+This project explores the evolution of Scotland's trade amidst a series of global "shocks." While the data tracks the shift in international markets, the primary insight discovered was the persistent and overwhelming role of the **Rest of the UK (RUK)** as a destination. 
+
+### Key Insight: The "Shadow Export" Hypothesis
+The analysis highlights that a significant portion of "exports to the RUK" may represent transit trade—goods destined for the EU that pass through English logistics hubs (the "Rotterdam Effect"). This nuances the traditional understanding of Scottish trade independence and highlights the deep integration of the UK internal market.
+
+## 🛠️ Technical Implementation
+- **Zero-Pandas Runtime:** Optimized for **WebAssembly (Shinylive)**. By moving data processing to a pre-deployment JSON pipeline, the initial load size was reduced from ~35MB to <3MB, ensuring near-instant browser startup.
+- **Precision Annotations:** Used **NumPy linear interpolation** (`np.interp`) to dynamically anchor "flagpole" annotations to trend lines, ensuring visual accuracy across multi-year events like Brexit.
+- **Sophisticated UX:** Built a side-by-side utility menu featuring a PDF report downloader and direct GitHub source linking using custom CSS-classed UI elements.
+
+## 📂 Project Structure
+* `app.py`: The high-performance Shiny application.
+* `prepare_data.py`: The local ETL (Extract, Transform, Load) script that processes Excel data into JSON.
+* `data/processed/clean_ESS_data.json`: The "lean" data source for the live app.
+* `requirements.txt`: Minimalist dependencies (Matplotlib, Numpy, Requests, Shiny).
+
+## 📊 Quick Preview
+![Export Destinations Chart](docs/assets/export_chart.png)
+
+---
+*Data Source: Scottish Government, Export Statistics Scotland (ESS) 2023.*
