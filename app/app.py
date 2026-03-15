@@ -17,6 +17,7 @@ from constants import EVENTS, APP_TITLE, DATA_SOURCE_CREDIT, DATA_SOURCE_URL, GI
 
 # DEBUG_SCREEN = None
 
+
 # ---------------------------------------------------------
 # 0. CONFIG & DATA INGESTION
 # ---------------------------------------------------------
@@ -33,21 +34,20 @@ else:
 
 # Global variables from JSON
 years_x = web_data["years"]
-ruk_vals = np.array(web_data["data"]["ruk"])
-eu_vals = np.array(web_data["data"]["eu"])
-non_eu_vals = np.array(web_data["data"]["non_eu"])
-total_values = np.array(web_data["data"]["total"])
 excel_notes = web_data["metadata"]["notes"]
 
-# data_url = "https://www.gov.scot/publications/exports-statistics-scotland-2023/"
+# Current Prices
+ruk_vals = np.array(web_data["data"]["current_value"]["ruk"])
+eu_vals = np.array(web_data["data"]["current_value"]["eu"])
+non_eu_vals = np.array(web_data["data"]["current_value"]["non_eu"])
+total_values = np.array(web_data["data"]["current_value"]["total"])
 
-# EVENTS = {
-#     (2008, 2009): {"label": "Global Financial Crisis", "color": "#d9d9d9"},
-#     (2014, 2015): {"label": "IndyRef &\nOil Supply Chain Shock", "color": "#fff9c4"},
-#     (2016, 2019): {"label": "Brexit Referendum\n& consequent uncertainty", "color": "#d9d9d9"},
-#     (2020, 2021): {"label": "COVID-19 & New EU\nTrade Rules (TCA)", "color": "#fff9c4"},
-#     (2022, 2023): {"label": "Ukraine War\nEnergy Shock", "color": "#d9d9d9"}
-# }
+# Real Terms
+real_ruk_vals = np.array(web_data["data"]["real_value"]["ruk"])
+real_eu_vals = np.array(web_data["data"]["real_value"]["eu"])
+real_non_eu_vals = np.array(web_data["data"]["real_value"]["non_eu"])
+real_total_vals = np.array(web_data["data"]["real_value"]["total"])
+
 
 # ---------------------------------------------------------
 # 4. UI
@@ -62,6 +62,12 @@ app_ui = ui.page_fluid(
         # Plot Output
         ui.output_plot("trade_plot", height="800px"),
         
+        # Inside your app_ui, above the utility menu div:
+        ui.div(
+            ui.input_switch("show_real", "Show Inflation Adjusted (2008 Prices)", False),
+            style="display: flex; justify-content: center; margin-bottom: 10px;"
+        ),
+
         # Utility menu
         ui.div(
             ui.download_button("download_pdf", "Download PDF Report"),
@@ -82,8 +88,24 @@ app_ui = ui.page_fluid(
 # 5. SERVER
 # ---------------------------------------------------------
 def server(input, output, session):
+# Calculate the global max once based on CURRENT prices (the highest point)
+# We add 20% padding so the event labels have room at the top
+    global_y_max = total_values.max() * 1.20
 
     def create_figure():
+        if input.show_real():
+            active_ruk = real_ruk_vals
+            active_eu = real_eu_vals
+            active_non_eu = real_non_eu_vals
+            active_total = real_total_vals
+            y_label = "Value (Billions - 2008 Real Terms)"
+        else:
+            active_ruk = ruk_vals
+            active_eu = eu_vals
+            active_non_eu = non_eu_vals
+            active_total = total_values
+            y_label = "Value (Billions - Current Prices)"
+
         ruk_color, eu_color, non_eu_color = "#4C5B7A", "#2A9D8F", "#8ABF88"
         
         plt.style.use("default")
@@ -113,17 +135,17 @@ def server(input, output, session):
         width = 0.25
 
         # Staircasing logic
-        ax.set_ylim(0, total_values.max() * 1.20) 
-        y_top = ax.get_ylim()[1]
+        ax.set_ylim(0, global_y_max) 
+        y_top = global_y_max
         prev_x_end, state_index = None, 0
-        heights = [0.96, 0.89, 0.82] 
+        heights = [0.96, 0.89, 0.82]
 
         for (yr_start, yr_end), event in EVENTS.items():
             if yr_start in years_x or yr_end in years_x:
                 idx_start = years_x.index(max(yr_start, min(years_x)))
                 idx_end = years_x.index(min(yr_end, max(years_x)))
                 x_center = (idx_start + idx_end) / 2
-                target_y = np.interp(x_center, x, total_values) # new line
+                target_y = np.interp(x_center, x, active_total) # new line
                 ax.axvspan(idx_start - 0.5, idx_end + 0.5, color=event["color"], alpha=0.35, zorder=0)
 
                 if prev_x_end is not None and abs(idx_start - prev_x_end) <= 2:
@@ -140,14 +162,14 @@ def server(input, output, session):
                 prev_x_end = idx_end
 
         # Plotting with new variables
-        b1 = ax.bar(x - width, ruk_vals, width, label="Rest of the UK", color=ruk_color, alpha=0.65, zorder=2)
-        b2 = ax.bar(x, eu_vals, width, label="EU Exports", color=eu_color, alpha=0.65, zorder=2)
-        b3 = ax.bar(x + width, non_eu_vals, width, label="Non-EU Exports", color=non_eu_color, alpha=0.65, zorder=2)
-        line = ax.plot(x, total_values, color="#222222", marker="o", linewidth=1.5, markersize=2.3, label="Total", zorder=5)
+        b1 = ax.bar(x - width, active_ruk, width, label="Rest of the UK", color=ruk_color, alpha=0.65, zorder=2)
+        b2 = ax.bar(x, active_eu, width, label="EU Exports", color=eu_color, alpha=0.65, zorder=2)
+        b3 = ax.bar(x + width, active_non_eu, width, label="Non-EU Exports", color=non_eu_color, alpha=0.65, zorder=2)
+        line = ax.plot(x, active_total, color="#222222", marker="o", linewidth=1.5, markersize=2.3, label="Total", zorder=5)
         
         ax.set_xticks(x)
         ax.set_xticklabels(years_x)
-        ax.set_ylabel("Value (£ Billions)",
+        ax.set_ylabel(y_label,
                       fontsize=11,
                       color='#777777'
                     )
