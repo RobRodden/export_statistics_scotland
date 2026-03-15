@@ -167,7 +167,7 @@ def server(input, output, session):
         ax.yaxis.grid(True, linestyle="--", alpha=0.25)
         for s in ['top','right','left','bottom']: ax.spines[s].set_visible(False)
 
-        ax_note.legend([b1, b2, b3, line[0]], ["Rest of UK", "EU", "Non-EU", "Total"], 
+        ax_note.legend([b1, b2, b3, line[0]], ["Rest of United Kingdom (RUK)", "European Union (EU)", "Rest of World (Non-EU)", "Total (RUK + EU + Non-EU)"], 
                        loc="upper center", ncol=4, frameon=False)
         
 #        note = f"Source: ESS 2023\nNotes: {excel_notes}\nUpdated: {datetime.now().strftime('%d %B %Y')}"
