@@ -10,7 +10,7 @@ EVENTS = {
 }
 
 # Application UI Text
-APP_TITLE = "How have Scotland's exports changed between 2008–2023?"
+APP_TITLE = "How have Scotland's exports changed between 2008-2023?"
 DATA_SOURCE_CREDIT = "Export Statistics Scotland (ESS) 2023"
 DATA_SOURCE_URL = "https://www.gov.scot/publications/exports-statistics-scotland-2023/"
 GITHUB_URL = "https://github.com/RobRodden/export_statistics_scotland"
