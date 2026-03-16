@@ -1,66 +1,71 @@
 ![Export chart](assets/how_have_scotlands_exports_changed_between_2003_2008.png)
 
-# Draft 1
-## Live Demo (may be slow on first loading)
-https://robrodden.github.io/export_statistics_scotland/
+# Draft: Scottish Exports Dashboard (2008-2023)
+## [View Live Demo](https://robrodden.github.io/export_statistics_scotland/)
+*(Note: May be slow on first loading as the Python environment initializes in your browser.)*
 
-Scottish Exports Dashboard (2008–2023)
-A dynamic, interactive web application built with Shiny for Python to visualize Scotland's export statistics by geographical block. This tool provides insights into trade trends with the Rest of the UK (RUK), the European Union (EU), and the Rest of the World (Non-EU).
+A dynamic, interactive web application built with **Shiny for Python** to visualise Scotland's export statistics by geographical block. This tool provides insights into trade trends with the Rest of the UK (RUK), the European Union (EU), and the Rest of the World (Non-EU).
 
-Features
-Time-Series Visualization: Analysis of trade data from 2008 to 2023.
+## Key Features
+* **Interactive Time-Series Visualisation:** Tracks trade value in £ Billions across three main destination blocks from 2008 to 2023.
+* **Inflation Adjustment:** A built-in toggle to switch between **Real Terms** (inflation-adjusted to 2008 prices) and **Nominal Prices** (current value).
+* **Contextual Events:** Integrated "staircase" labeling system for major economic events (Brexit, COVID-19, Ukraine War), allowing users to see their direct impact on trade data.
+* **Exportable PDF:** Generate and download high-resolution PDF reports of the current chart.
+* **Serverless Deployment:** Hosted via **Shinylive**, running entirely in the browser for maximum accessibility.
 
-Inflation Adjustment: A built-in toggle to switch between Real Terms (inflation-adjusted to 2008 prices) and Nominal Prices (current value).
+## Tech Stack
+* **Language:** Python 3.11+
+* **Framework:** Shiny for Python
+* **Libraries:** NumPy, Matplotlib, Requests, and Pandas (for data processing)
+* **Deployment:** Shinylive & GitHub Pages
 
-Contextual Events: Automated "staircase" labeling of major economic events (e.g., Global Financial Crisis, Brexit, COVID-19) to see their impact on trade.
+## Project Structure
+* `/app`: Contains the live application code (`app.py`), UI constants, and processed JSON data.
+* `/data_processed`: Cleaned data source generated from official Scottish Government statistics.
+* `/docs`: Static export of the application for GitHub Pages hosting.
+* `requirements.txt`: Project dependencies.
 
-Exportable PDF: Generate and download a high-resolution PDF report of the current view.
+## Local Development
+1. **Clone the repo:**
+```bash
+    git clone https://github.com/RobRodden/export_statistics_scotland.git
+    cd export_statistics_scotland
+```
 
-Live Web Version: Hosted via Shinylive, allowing the app to run entirely in the browser without a backend server.
+2. Set Up a Virtual Environment
+```bash
+    python -m venv venv
+    
+    # Windows:
+    .\venv\Scripts\activate
+    
+    # Mac/Linux:
+    source venv/bin/activate
+```
 
-Tech Stack
-Language: Python 3.11+
+3. Install dependencies:
+```bash
+    pip install -r requirements.txt
+```
 
-Web Framework: Shiny for Python
+4. Run the app:
+```bash
+    cd app
+    shiny run --reload app.py
+    
+    The app will be available at http://localhost:8000.
+```
 
-Data Science: NumPy, Pandas (for processing)
+5. Test the Static Build (Optional):
+```bash
+    python3 -m http.server --directory docs 8008
+    
+    The static version will be available at http://localhost:8008.
+```
 
-Visualization: Matplotlib
-
-Static Hosting: Shinylive & GitHub Pages
-
-Project Structure
-/app: Contains the live application code (app.py), UI constants, and the processed JSON data.
-
-/data_processed: The cleaned data source generated from official Scottish Government statistics.
-
-/docs: The static export of the application for web hosting.
-
-requirements.txt: List of dependencies for both the app and data processing.
-
-Local Setup
-Clone the repository:
-
-Bash
-git clone https://github.com/RobRodden/export_statistics_scotland.git
-cd export_statistics_scotland
-Create and activate a virtual environment:
-
-Bash
-python -m venv venv
-# Windows:
-.\venv\Scripts\activate
-# Mac/Linux:
-source venv/bin/activate
-Install dependencies:
-
-Bash
-pip install -r requirements.txt
-Run the app:
-
-Bash
-cd app
-shiny run --reload app.py
-Data Source
+## Data Source
 Data is sourced from the Export Statistics Scotland (ESS) 2023 publication.
-Source: Scottish Government - Export Statistics Scotland
+Source: https://www.gov.scot/publications/exports-statistics-scotland-2023/
+
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
