@@ -1,10 +1,16 @@
 # Python environment
 __pycache__/
+*.py[cod]
+*$py.class
 
 # Virtual environment
 .venv/
 env/
+venv/
 venv
+
+# Data processing leftovers
+*.log
 
 # Editor-specific settings
 .vscode/
@@ -18,6 +24,9 @@ Project\ Case\ Study\ -\ Scottish\ Outbound\ Trade\ -\ 2008\ to\ 2023.pages
 # Ignore Excel temporary files
 ~$*
 ~$ESS+2023+-+Published+Tables.xlsx
+
+# Ignore specific files
+app/app_test_update.py
 
 # Ignore local working folder
 drafts/
