@@ -2,9 +2,9 @@
 
 # Draft: Scottish Exports Dashboard (2008-2023)
 ## [View Live Demo](https://robrodden.github.io/export_statistics_scotland/)
-*(Note: May be slow on first loading as the Python environment initializes in your browser.)*
+*(Note: May be slow on first loading as the Python environment initialises in your browser.)*
 
-A dynamic, interactive web application built with **Shiny for Python** to visualise Scotland's export statistics by geographical block. This tool provides insights into trade trends with the Rest of the UK (RUK), the European Union (EU), and the Rest of the World (Non-EU).
+A dynamic, interactive web application built with **Shiny for Python** to visualise Scotland's export statistics by geographical block. This tool provides insights into trade trends with the Rest of the UK (RUK), the European Union (EU), and the Rest of the World (Non-EU). [Exports as defined by the Export Statistics Scotland (ESS) 2023 publication]
 
 ## Key Features
 * **Interactive Time-Series Visualisation:** Tracks trade value in £ Billions across three main destination blocks from 2008 to 2023.
