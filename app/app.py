@@ -90,7 +90,7 @@ app_ui = ui.page_fluid(
 def server(input, output, session):
 # Calculate the global max once based on CURRENT prices (the highest point)
 # We add 20% padding so the event labels have room at the top
-    global_y_max = total_values.max() * 1.20
+    global_y_max = max(total_values.max(), real_total_vals.max()) * 1.20
 
     def create_figure():
         if input.show_real():
